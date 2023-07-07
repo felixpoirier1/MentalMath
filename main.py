@@ -2,14 +2,15 @@ import random
 import time
 import datetime
 
-def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
+def main(operation:int=-1, time_allowed:int=60*8, decimals:bool=True):
     starttime = time.time()
     operations = [(lambda x,y : x+y, "+"), (lambda x,y: x-y, "-"), (lambda x,y: x*y, "*"), (lambda x,y: x/y, "/")]
-    operations = operations[operation] if operation != -1 else operations
+    operations = [operations[operation]] if operation != -1 else operations
     score = 0
     iterations = 0
 
     while(time.time() < starttime+time_allowed):
+        it_time = time.time()
         iterations += 1
         op = operations[random.randint(0, len(operations)-1)]
 
@@ -25,24 +26,24 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
         else:
             y = random.randint(-49, 49)*10
             x = y * random.randint(-10,10)
-        
+    
         print(f"{round(starttime+time_allowed - time.time(),0)} seconds remaining, press 'x' if you want to stop playing")
         print("\t", x, " ", op[1], " ", y, " = ")
 
         resp = input("\t\t")
         try:
             resp = float(resp) 
-            if resp == op[0](x,y):
+            if resp == round(op[0](x,y),2):
                 score += 1
-                print("CORRECT")
+                print("CORRECT, ANSWERED IN ", round(time.time() - it_time,2), " SECONDS")
             else:
                 score -= 1
-                print("WRONG")
+                print("WRONG, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
         except:
             if resp == 'x':
                 break
             score -= 1
-            print("WRONG")
+            print("WRONG, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
     
     resp = {
             "score" : score,
