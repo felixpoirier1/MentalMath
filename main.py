@@ -13,20 +13,20 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
         iterations += 1
         op = operations[random.randint(0, len(operations)-1)]
 
-        if op[1] in ["+", "-"]:
+        if op[1] == "+" or op[1] == "-":
             x = random.randint(-4999, 4999) + (random.randint(0, 99)/100 if decimals else 0)
 
             y = random.randint(-4999, 4999) + (random.randint(0,99)/100 if decimals else 0)
 
         elif op[1] == "*":
             x = random.randint(-99, 99) + (random.randint(0, 9)/10 if decimals else 0)
-            y = random.randint(-49, 49) 
+            y = random.randint(-24, 24)*2 
         
         else:
             y = random.randint(-49, 49)*10
             x = y * random.randint(-10,10)
         
-        print(f"{starttime+time_allowed - time.time()} seconds remaining, press 'x' if you want to stop playing")
+        print(f"{round(starttime+time_allowed - time.time(),0)} seconds remaining, press 'x' if you want to stop playing")
         print("\t", x, " ", op[1], " ", y, " = ")
 
         resp = input("\t\t")
@@ -34,12 +34,15 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
             resp = float(resp) 
             if resp == op[0](x,y):
                 score += 1
+                print("CORRECT")
             else:
                 score -= 1
+                print("WRONG")
         except:
             if resp == 'x':
                 break
             score -= 1
+            print("WRONG")
     
     resp = {
             "score" : score,
