@@ -20,7 +20,7 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
 
         elif op[1] == "*":
             x = random.randint(-99, 99) + (random.randint(0, 9)/10 if decimals else 0)
-            y = random.randint(-49, 49) + (random.randint(0, 9)/10if decimals else 0)
+            y = random.randint(-49, 49) 
         
         else:
             y = random.randint(-49, 49)*10
@@ -38,7 +38,7 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
                 score -= 1
         except:
             if resp == 'x':
-                exit()
+                break
             score -= 1
     
     resp = {
