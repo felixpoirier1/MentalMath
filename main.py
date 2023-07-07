@@ -23,9 +23,8 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals=True):
             y = random.randint(-49, 49) + (random.randint(0, 9)/10if decimals else 0)
         
         else:
-            x = random.randint(-49, 49)*10
-            ans = x * random.randint(-10,10)
-            y = x/ans
+            y = random.randint(-49, 49)*10
+            x = y * random.randint(-10,10)
         
         print(f"{starttime+time_allowed - time.time()} seconds remaining, press 'x' if you want to stop playing")
         print("\t", x, " ", op[1], " ", y, " = ")
