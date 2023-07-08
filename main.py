@@ -1,6 +1,7 @@
 import random
 import time
 import datetime
+import os
 
 def main(operation:int=-1, time_allowed:int=60*8, decimals:bool=True):
     starttime = time.time()
@@ -35,15 +36,15 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals:bool=True):
             resp = float(resp) 
             if resp == round(op[0](x,y),2):
                 score += 1
-                print("CORRECT, ANSWERED IN ", round(time.time() - it_time,2), " SECONDS")
+                print("\u001b[32mCORRECT\u001b[0m, ANSWERED IN ", round(time.time() - it_time,2), " SECONDS")
             else:
                 score -= 1
-                print("WRONG, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
+                print("\u001b[31mWRONG\u001b[0m, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
         except:
             if resp == 'x':
                 break
             score -= 1
-            print("WRONG, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
+            print("\u001b[31mWRONG\u001b[0m, CORRECT ANSWER WAS ", round(op[0](x,y), 2))
     
     resp = {
             "score" : score,
@@ -80,6 +81,16 @@ if __name__== "__main__":
     result = main(op, time_to_play, decimals)
     
     print(result)
+        
+    ans = input("press 's' to save results into csv file : ")
+
+    if ans == "s":
+        if "results.csv" not in os.listdir():
+            with open("results.csv", "w") as head:
+                head.write("date, score, questions_asked, seconds_elapsed\n")
+        with open("results.csv", "a") as res:
+            res.write(f"{result['date']}, {result['score']}, {result['questions_asked']}, {result['seconds_elapsed']}\n")
+    
 
 
 
