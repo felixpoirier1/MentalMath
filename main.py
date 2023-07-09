@@ -21,12 +21,13 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals:bool=True):
             y = random.randint(-4999, 4999) + (random.randint(0,99)/100 if decimals else 0)
 
         elif op[1] == "*":
-            x = random.randint(-99, 99) + (random.randint(0, 9)/10 if decimals else 0)
+            x = random.randint(-9, 9) + (random.randint(0, 9)/10 if decimals else 0)
             y = random.randint(-24, 24)*2 
         
         else:
             y = random.randint(-49, 49)*10
-            x = y * random.randint(-10,10)
+            ans = random.randint(-10,10)
+            x = y * (ans if ans !=0 else 1)
     
         print(f"{round(starttime+time_allowed - time.time(),0)} seconds remaining, press 'x' if you want to stop playing")
         print("\t", x, " ", op[1], " ", y, " = ")
@@ -87,9 +88,9 @@ if __name__== "__main__":
     if ans == "s":
         if "results.csv" not in os.listdir():
             with open("results.csv", "w") as head:
-                head.write("date, score, questions_asked, seconds_elapsed\n")
+                head.write("date,score,questions_asked,seconds_elapsed\n")
         with open("results.csv", "a") as res:
-            res.write(f"{result['date']}, {result['score']}, {result['questions_asked']}, {result['seconds_elapsed']}\n")
+            res.write(f"{result['date']},{result['score']},{result['questions_asked']},{result['seconds_elapsed']}\n")
     
 
 
