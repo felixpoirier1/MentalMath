@@ -27,7 +27,9 @@ def main(operation:int=-1, time_allowed:int=60*8, decimals:bool=True):
         else:
             y = random.randint(-49, 49)*10
             ans = random.randint(-10,10)
-            x = y * (ans if ans !=0 else 1)
+            ans = 1 if ans == 0 else ans
+            y = 1 if y == 0 else y
+            x = y * ans
     
         print(f"{round(starttime+time_allowed - time.time(),0)} seconds remaining, press 'x' if you want to stop playing")
         print("\t", x, " ", op[1], " ", y, " = ")
